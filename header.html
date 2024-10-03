@@ -1,0 +1,99 @@
+<style>
+    #logo {
+        width: 50px;
+        /* Set the desired width of the logo div */
+        height: 50px;
+        /* Set the desired height of the logo div */
+        display: flex;
+        /* To handle multiple images */
+        align-items: center;
+        /* Center align the images vertically */
+    }
+
+    #logo .logo,
+    #logo .logo-2 {
+        width: 100%;
+        /* Image width will adapt to the parent div */
+        height: 100%;
+        /* Image height will adapt to the parent div */
+        object-fit: contain;
+        /* Keep the aspect ratio of the image */
+    }
+</style>
+
+<!-- Add Font Awesome CDN in your head section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!-- header begin -->
+<header class="header-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="de-flex sm-pt10">
+                    <div class="de-flex-col">
+                        <!-- logo begin -->
+                        <div id="logo">
+                            <a href="index.html">
+                                <img alt="" class="logo" src="images/logo.jpeg" />
+                                <img alt="" class="logo-2" src="images/logo.jpeg" />
+                            </a>
+                        </div>
+                        <!-- logo close -->
+                    </div>
+                    <div class="de-flex-col header-col-mid">
+                        <!-- mainmenu begin -->
+                        <ul id="mainmenu">
+                            <li><a href="index.html" class="menu-link">Home</a></li>
+                            <li><a href="about.html" class="menu-link">About</a></li>
+                            <li><a href="services.html" class="menu-link">Services</a></li>
+                            <li>
+                                <a class="news" style="cursor: pointer;">News</a>
+                                <ul class="submenu">
+                                    <li><a href="news.html">News</a></li>
+                                    <li><a href="publication.html">Publication</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="team.html" class="menu-link">Team</a></li>
+                            <li><a href="contact.html" class="menu-link">Contact</a></li>
+                            <li><a href="review.html" class="menu-link">Reviews</a>
+                            </li>
+                        </ul>
+                        <!-- mainmenu close -->
+                    </div>
+                    <div class="de-flex-col">
+                        <div class="h-phone md-hide"><span>Need&nbsp;Help?</span><i class="fa fa-phone"></i> +977
+                            985-1201490</div>
+                        <span id="menu-btn"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Javascript Files
+    ================================================== -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/easing.js"></script>
+    <script src="js/owl.carousel.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/enquire.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.plugin.js"></script>
+    <script src="js/typed.js"></script>
+    <script src="js/jarallax.js"></script>
+    <script src="js/jquery.countTo.js"></script>
+    <script src="js/jquery.countdown.js"></script>
+    <script src="js/typed.js"></script>
+    <script src="js/jarallax.js"></script>
+    <script src="js/designesia.js"></script>
+
+
+</header>
+<!-- header close -->

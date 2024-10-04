@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Justica - Lawyer and Attorney Website Template</title>
-    <link rel="icon" href="images/icon.png" type="image/gif" sizes="16x16">
+    <title>Index - Finlex Associates</title>
+    <link rel="icon" href="images/favicon.ico.png" type="image/gif" sizes="16x16">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Justica - Lawyer and Attorney Website Template" name="description" />
     <meta content="" name="keywords" />
@@ -273,7 +273,8 @@
                                             your
                                             rights in the workplace.
                                         </div>
-                                        <span href="services-labor-and-employment-Law.html" class="btn-main">Read More</span>
+                                        <span href="services-labor-and-employment-Law.html" class="btn-main">Read
+                                            More</span>
                                     </div>
                                 </a>
                                 <div class="d-image filter-sephia-30"
@@ -312,7 +313,8 @@
                                             help
                                             your projects succeed.
                                         </div>
-                                        <span href="services-energy-and-infrastructure.html" class="btn-main">Read More</span>
+                                        <span href="services-energy-and-infrastructure.html" class="btn-main">Read
+                                            More</span>
                                     </div>
                                 </a>
                                 <div class="d-image filter-sephia-30"
@@ -443,19 +445,17 @@
                             <span class="p-title wow fadeInUp">Calculator</span>
 
                             <div class="mainformDiv"
-                                style="display: flex; flex-direction: row; justify-content: space-between; ">
+                                style="display: flex; flex-direction: row; justify-content: space-between;">
                                 <div>
-                                    <a href="calculate.html">
-                                        <h2 style="padding-bottom: 10px; color: white;">Calculate your Court Fee</h2>
+                                    <a href="calculate.html" class="court-fee-link">
+                                        <h2 style="padding-bottom: 10px;">Calculate your Court Fee</h2>
                                     </a>
                                     <form id="courtFeeForm">
                                         <div class="form-group">
-                                            <label for="amountInput" style="margin-right: 10px;">Enter
-                                                your
+                                            <label for="amountInput" style="margin-right: 10px;">Enter your
                                                 amount:</label>
                                             <div class="calculateDiv">
                                                 <input type="number" id="amountInput" placeholder="Enter amount" />
-
                                                 <button type="button" id="calculateButton"
                                                     class="btn btn-primary">Calculate</button>
                                             </div>
@@ -464,6 +464,13 @@
                                             <label for="courtFeeOutput">Court Fee to be paid before court:</label>
                                             <input type="text" id="courtFeeOutput" readonly
                                                 placeholder="Calculated fee will appear here" />
+                                        </div>
+                                        <!-- "See Calculation Details" link -->
+                                        <div id="calculationDetailsLink" style="margin-top: 20px; display: none;">
+                                            <a id="seeDetailsLink" href="#"
+                                                style="text-decoration: underline; color: rgb(252, 240, 113);">See
+                                                Calculation
+                                                Details</a>
                                         </div>
                                     </form>
                                 </div>
@@ -681,24 +688,16 @@
 
     <script>
         $(document).ready(function () {
-            // Clear the output when the input changes
-            $("#amountInput").on("input", function () {
-                $("#courtFeeOutput").val(""); // Clear the output field
-            });
-
-            // Function to calculate court fee with breakdown
             $("#calculateButton").click(function () {
                 const amount = parseFloat($("#amountInput").val());
-                let breakdown = "";
                 let totalFee = 0;
 
-                // Validate the input
                 if (isNaN(amount) || amount <= 0) {
                     alert("Please enter a valid amount.");
                     return;
                 }
 
-                // Calculation logic for each range
+                // Calculate the total fee logic
                 if (amount <= 25000) {
                     totalFee = 500;
                 } else if (amount <= 50000) {
@@ -715,6 +714,12 @@
 
                 // Display the total fee in the output field
                 $("#courtFeeOutput").val("Rs. " + totalFee.toFixed(2));
+
+                // Display the "See Calculation Details" link
+                $("#calculationDetailsLink").show();
+
+                // Set the href to pass the amount to the new page
+                $("#seeDetailsLink").attr("href", `calculate.html?amount=${amount}`);
             });
         });
     </script>

@@ -19,8 +19,6 @@
         object-fit: contain;
         /* Keep the aspect ratio of the image */
     }
-
-    
 </style>
 
 <!-- Add Font Awesome CDN in your head section -->
@@ -45,7 +43,7 @@
                     </div>
                     <div class="de-flex-col header-col-mid">
                         <!-- mainmenu begin -->
-                        <ul id="mainmenu" class="menu-button">
+                        <ul id="mainmenu">
                             <li><a href="index.html" class="menu-link">Home</a></li>
                             <li><a href="about.html" class="menu-link">About</a></li>
                             <li><a href="services.html" class="menu-link">Services</a></li>
@@ -88,36 +86,12 @@
     <script src="js/enquire.min.js"></script>
     <script src="js/jquery.stellar.min.js"></script>
     <script src="js/jquery.plugin.js"></script>
-    <script src="js/typed.js"></script>
     <script src="js/jarallax.js"></script>
     <script src="js/jquery.countTo.js"></script>
     <script src="js/jquery.countdown.js"></script>
-
+   
     <script src="js/jarallax.js"></script>
     <script src="js/designesia.js"></script>
-
-
-    <script>
-        $(document).ready(function () {
-            // Menu toggle button
-            $('#menu-btn').click(function () {
-                // Toggle the visibility of the main menu
-                $('#mainmenu').toggleClass('active');
-            });
-
-            // Ensure the menu is hidden by default on page load
-            $('#mainmenu').removeClass('active');
-        });
-
-        // Optional: Close the menu when clicking outside of it
-        $(document).click(function (event) {
-            var target = $(event.target);
-            if (!target.closest('#menu-btn, #mainmenu').length) {
-                $('#mainmenu').removeClass('active'); // Hide the menu
-            }
-        });
-
-    </script>
 
 
 </header>

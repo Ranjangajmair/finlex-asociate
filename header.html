@@ -24,9 +24,8 @@
 <!-- Add Font Awesome CDN in your head section -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
 <!-- header begin -->
-<header class="header-light">
+<header class="header-light header-mobile">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -56,14 +55,14 @@
                             </li>
                             <li><a href="team.html" class="menu-link">Team</a></li>
                             <li><a href="contact.html" class="menu-link">Contact</a></li>
-                            <li><a href="review.html" class="menu-link">Reviews</a>
-                            </li>
+                            <li><a href="review.html" class="menu-link">Reviews</a></li>
                         </ul>
                         <!-- mainmenu close -->
                     </div>
                     <div class="de-flex-col">
-                        <div class="h-phone md-hide"><span>Need&nbsp;Help?</span><i class="fa fa-phone"></i> +977
-                            985-1201490</div>
+                        <div class="h-phone md-hide">
+                            <span>Need&nbsp;Help?</span><i class="fa fa-phone"></i> +977 985-1201490
+                        </div>
                         <span id="menu-btn"></span>
                     </div>
                 </div>
@@ -71,13 +70,51 @@
         </div>
     </div>
 
-
-
-    <!-- Javascript Files
-    ================================================== -->
-        
+    <!-- Javascript Files ================================================== -->
     <script src="js/designesia.js"></script>
 
+    <script>
+        var mobile_menu_show = 0; // Make sure this is globally available
+        var $tmp_h = '90'; // Set the default height of the header
+        
+        // Function to handle the menu toggle
+        function handleMenuToggle() {
+            jQuery('#menu-btn').on("click", function () {
+                var h = jQuery('header')[0].scrollHeight;
+                
+                if (mobile_menu_show == 0) {
+                    jQuery('header.header-mobile').stop(true).animate({
+                        'height': h
+                    }, 200, 'easeOutCubic');
+                    mobile_menu_show = 1;
+                } else {
+                    jQuery('header.header-mobile').stop(true).animate({
+                        'height': $tmp_h
+                    }, 200, 'easeOutCubic');
+                    mobile_menu_show = 0;
+                }
+            });
+        }
 
+        // Function to handle screen size changes with enquire.js
+        function handleScreenResize() {
+            enquire.register("screen and (min-width: 993px)", {
+                match: function () {
+                    mobile_menu_show = 1;
+                    jQuery("#menu-btn").hide();
+                },
+                unmatch: function () {
+                    mobile_menu_show = 0;
+                    jQuery("#menu-btn").show();
+                }
+            });
+        }
+
+        // Initialize everything in document ready
+        jQuery(document).ready(function () {
+            handleMenuToggle();  // Call the menu toggle function
+            handleScreenResize();  // Call the screen resize handler
+        });
+    </script>
 </header>
 <!-- header close -->

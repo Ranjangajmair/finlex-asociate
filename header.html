@@ -1,4 +1,21 @@
 <style>
+    .mainContainer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .mainContainer {
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+
+        .h-phone {
+            display: none;
+        }
+       
+    }
+
     #logo {
         width: 50px;
         /* Set the desired width of the logo div */
@@ -8,6 +25,15 @@
         /* To handle multiple images */
         align-items: center;
         /* Center align the images vertically */
+        margin-right: 100px;
+    }
+
+    .logoDiv {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        height: 50px;
+        width: 50px;
     }
 
     #logo .logo,
@@ -26,17 +52,24 @@
 
 <!-- header begin -->
 <header class="header-light header-mobile">
-    <div class="container">
+    <div class="mainContainer">
         <div class="row">
             <div class="col-md-12">
                 <div class="de-flex sm-pt10">
                     <div class="de-flex-col">
                         <!-- logo begin -->
                         <div id="logo">
-                            <a href="index.html">
+                            <a class="logoDiv" href="index.html">
                                 <img alt="" class="logo" src="images/logo.jpeg" />
                                 <img alt="" class="logo-2" src="images/logo.jpeg" />
+                                <div
+                                    style="line-height: 1; display: flex; align-items: center; justify-content: center;">
+                                    <div style="color: rgb(80, 80, 80); font-weight: bold;">
+                                        Finlex Associates
+                                    </div>
+                                </div>
                             </a>
+
                         </div>
                         <!-- logo close -->
                     </div>
@@ -58,6 +91,8 @@
                             <li><a href="team.html" class="menu-link">Team</a></li>
                             <li><a href="contact.html" class="menu-link">Contact</a></li>
                             <li><a href="review.html" class="menu-link">Reviews</a></li>
+                            <li><a href="calculate.html" class="menu-link">calculate?</a></li>
+
                         </ul>
                         <!-- mainmenu close -->
                     </div>
@@ -78,12 +113,12 @@
     <script>
         var mobile_menu_show = 0; // Make sure this is globally available
         var $tmp_h = '90'; // Set the default height of the header
-        
+
         // Function to handle the menu toggle
         function handleMenuToggle() {
             jQuery('#menu-btn').on("click", function () {
                 var h = jQuery('header')[0].scrollHeight;
-                
+
                 if (mobile_menu_show == 0) {
                     jQuery('header.header-mobile').stop(true).animate({
                         'height': h

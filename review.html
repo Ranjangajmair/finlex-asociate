@@ -29,7 +29,7 @@
 <body>
     <div id="wrapper">
 
-        <!-- header section starts -->
+        <!-- Dynamically loaded header -->
         <div id="header"></div>
 
         <!-- content begin -->
@@ -58,15 +58,24 @@
                     <div class="col-md-12">
                         <h2>What our clients say</h2>
                         <div id="reviews"></div> <!-- Reviews will be loaded here -->
+
+                        <!-- New section for Write a Review and View All Reviews buttons -->
+                        <div class="review-buttons text-center">
+                            <a href="https://www.google.com/maps/place/?q=place_id:ChIJs0assRsZ6zkRCruKh_xC_IE" target="_blank" class="view-all-reviews">View All Reviews</a>
+                            <br />
+                            <br />
+                            <span>
+                                <a href="https://search.google.com/local/writereview?placeid=ChIJs0assRsZ6zkRCruKh_xC_IE" target="_blank" class="btn btn-primary">Write a Review</a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </section>
-
         </div>
         <!-- content close -->
         <a href="review.html" id="back-to-top"></a>
 
-        <!-- footer section starts -->
+        <!-- Dynamically loaded footer -->
         <div id="footer"></div>
 
         <div id="preloader">
@@ -77,7 +86,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="purchase-now" style="display: flex; align-items: center; justify-content: center;">
         <a href="https://wa.me/9779851201490" target="_blank"
@@ -94,7 +102,7 @@
     <script src="js/wow.min.js"></script>
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/easing.js"></script>
-    <script src="js/owl.carousel.js"></script>
+    <script src="js/owl.carousel.js"></script> <!-- Owl Carousel -->
     <script src="js/validation.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/enquire.min.js"></script>
@@ -106,8 +114,12 @@
     <script src="js/jquery.countdown.js"></script>
     <script src="js/designesia.js"></script>
 
-    <!-- Google Places API Script -->
     <script>
+        let offset = 0; // Track which reviews are being displayed
+        const reviewsPerPage = 5; // Display 5 reviews per page
+        let totalReviews = []; // Store all reviews fetched from the API
+        let carouselInitialized = false; // Check if the carousel is already initialized
+
         function fetchPlaceDetails() {
             const apiKey = 'AIzaSyDsJ4fvfeyHt7H9ckPucK3u4hHo3_Y-kak'; // Replace with your Google API Key
             const placeId = 'ChIJs0assRsZ6zkRCruKh_xC_IE'; // Replace with your Place ID
@@ -117,9 +129,10 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    const result = JSON.parse(data.contents); // parse the result
-                    if (result.result) {
-                        displayReviews(result.result);
+                    const result = JSON.parse(data.contents); // Parse the result
+                    if (result.result && result.result.reviews.length > 0) {
+                        totalReviews = result.result.reviews; // Store all reviews
+                        displayReviews(); // Display the initial set of reviews
                     } else {
                         document.getElementById('reviews').innerHTML = 'No reviews found.';
                     }
@@ -127,76 +140,177 @@
                 .catch(error => console.error('Error fetching data:', error));
         }
 
-        function displayReviews(place) {
-            const reviewsDiv = document.getElementById('reviews');
-            const reviews = place.reviews;
-            let html = `<h3>${place.name}</h3>`;
-            html += `<p>Average Rating: ${place.rating}</p>`;
+        // Function to render stars based on the rating
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < Math.floor(rating)) {
+                    stars += '<i class="fas fa-star"></i>'; // Full star
+                } else if (i < rating) {
+                    stars += '<i class="fas fa-star-half-alt"></i>'; // Half star
+                } else {
+                    stars += '<i class="far fa-star"></i>'; // Empty star
+                }
+            }
+            return stars;
+        }
 
-            reviews.forEach(review => {
+        // Function to display reviews in batches of 5
+        function displayReviews() {
+            const reviewsDiv = document.getElementById('reviews');
+            let html = '';
+
+            // Get the next set of reviews based on the offset and reviewsPerPage
+            const reviewsToShow = totalReviews.slice(offset, offset + reviewsPerPage);
+            reviewsToShow.forEach(review => {
                 html += `
-                    <div>
-                        <h4>${review.author_name}</h4>
-                        <p>Rating: ${review.rating}</p>
-                        <p>${review.text}</p>
-                        <small>Reviewed on: ${new Date(review.time * 1000).toLocaleDateString()}</small>
+                    <div class="item">
+                        <div class="review-card">
+                            <h4>${review.author_name}</h4>
+                            <div class="review-stars">${renderStars(review.rating)}</div>
+                            <p>${review.text}</p>
+                            <small>Reviewed on: ${new Date(review.time * 1000).toLocaleDateString()}</small>
+                        </div>
                     </div>
-                    <hr />
                 `;
             });
 
-            reviewsDiv.innerHTML = html;
+            // If the carousel is already initialized, add new items
+            if (carouselInitialized) {
+                const owl = $('.owl-carousel').data('owl.carousel');
+                $(html).each(function() {
+                    owl.add($(this)); // Append new items to the carousel
+                });
+            } else {
+                // If it's the first time, initialize the carousel
+                reviewsDiv.innerHTML = `<div class="owl-carousel">${html}</div>`;
+                initializeCarousel();
+            }
+
+            offset += reviewsPerPage; // Update the offset for the next batch
+        }
+
+        // Function to initialize Owl Carousel
+        function initializeCarousel() {
+            $('.owl-carousel').owlCarousel({
+                loop: true, // Enable continuous loop
+                margin: 10,
+                nav: true, // Enable navigation
+                navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"], // Custom icons
+                autoplay: true, // Enable autoplay
+                autoplayTimeout: 5000, // Set autoplay interval to 5 seconds
+                responsive: {
+                    0: {
+                        items: 1 // 1 item at a time for mobile
+                    },
+                    600: {
+                        items: 2 // 2 items for tablets
+                    },
+                    1000: {
+                        items: 3 // 3 items for larger screens
+                    }
+                }
+            });
+            carouselInitialized = true; // Mark that the carousel is initialized
         }
 
         // Fetch place details on page load
-        window.onload = fetchPlaceDetails;
-    </script>
+        window.onload = function () {
+            fetchPlaceDetails();
 
-
-    <script>
-        $(function () {
-            $("#header").load("header.html", function () {
-                const currentPage = window.location.pathname.split("/").pop();
-
-                // Select all menu links
-                const menuItems = document.querySelectorAll('.menu-link');
-
-                // Iterate through each menu item
-                menuItems.forEach(function (menuItem) {
-                    // Compare the href attribute with the current page
-                    if (menuItem.getAttribute('href') === currentPage) {
-                        menuItem.classList.add('active'); // Add 'active' class to active menu items
-                    }
-                });
-            });
-
-            // Load other sections
-
+            // Dynamically load header and footer
+            $("#header").load("header.html");
             $("#footer").load("footer.html");
-        });
+        };
     </script>
 
     <style>
-        /* Styling for the active menu item */
-        .menu-area .main-menu ul li a.active {
-            color: #FFA500 !important;
-            /* Orange color */
-            font-weight: bold;
-            /* Make the active item bold */
+        /* Styling for the review cards */
+        .review-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
         }
 
-        /* Mobile styles */
-        @media (max-width: 991px) {
-            .th-mobile-menu ul li a.active {
-                color: #FFA500 !important;
-                /* Orange color for active menu items */
-            }
+        .review-card h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
 
-            /* Apply orange color on hover or focus */
-            .th-mobile-menu ul li a:hover,
-            .th-mobile-menu ul li a:focus {
-                color: #FFA500 !important;
-            }
+        .review-stars {
+            margin-bottom: 10px;
+            color: #FFD700; /* Gold color for stars */
+        }
+
+        .review-card p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .owl-carousel .item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Custom styles for owl carousel navigation */
+        .owl-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .owl-nav button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            pointer-events: all;
+        }
+
+        .owl-nav button.owl-prev {
+            position: absolute;
+            left: -40px;
+        }
+
+        .owl-nav button.owl-next {
+            position: absolute;
+            right: -40px;
+        }
+
+        /* Custom styles for carousel icons */
+        .fas.fa-chevron-left, .fas.fa-chevron-right {
+            font-size: 30px;
+            color: #333;
+        }
+
+        /* New styles for review buttons */
+        .review-buttons {
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .view-all-reviews {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .view-all-reviews:hover {
+            text-decoration: underline;
         }
     </style>
 

@@ -1,4 +1,11 @@
 <style>
+    .ul-style-2 {
+        display: flex;
+        justify-content: space-between;
+        gap: 200px;
+    }
+
+
     .mainfooter {
         margin-top: 40px;
     }
@@ -14,15 +21,45 @@
             height: 150px;
         }
     }
+
+    @media only screen and (max-width: 992px) {
+        span {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mainDiv {
+            justify-content: center;
+        }
+
+        .widget {
+            padding-bottom: 0px;
+        }
+
+        .ul-style-2 {
+            display: flex;
+            justify-content: center;
+            gap: 200px;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        span {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+        }
+    }
 </style>
 
 <!-- footer begin -->
 <footer>
     <div class="container">
         <div class="row" style="display: flex; justify-content: space-evenly;">
-            <div class="col-lg-4">
+            <div class="downDiv col-lg-4">
                 <div class="widget">
-                    <div style="display: flex; ">
+                    <div class="mainDiv" style="display: flex; ">
                         <a href="index.html"><img alt="" class="img-fluid mb20"
                                 style="display: flex; width: 50px; height: 50px;" src="images/logo.jpeg"></a>
                         <h4 style="color: white; margin-left: 10px;">
@@ -37,7 +74,11 @@
                             </div>
 
                         </span>
-                        <span><i class="id-color fa fa-phone fa-lg"></i>+977-9851201490</span>
+                        <span style="display: flex; flex-direction: row;">
+                            <i class="id-color fa fa-phone fa-lg"></i>
+                            +977-9851201490
+
+                        </span>
                         <span style="display: flex; flex-direction: row;">
                             <i class="id-color fa fa-envelope-o fa-lg"></i>
                             <div>
@@ -54,7 +95,7 @@
                         Pages
                     </h5>
                 </div>
-                <ul class="ul-style-2" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <ul class="ul-style-2">
                     <div>
                         <li><a href="index.html" class="menu-link">Home</a></li>
                         <li><a href="about.html" class="menu-link">About</a></li>

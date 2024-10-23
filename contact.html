@@ -29,22 +29,22 @@
     <link href="css/coloring.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
 </head>
 
 <body>
     <div id="wrapper">
 
-
         <!-- header section starts -->
         <div id="header"></div>
-
 
         <!-- content begin -->
         <div class="no-bottom no-top" id="content">
             <div id="top"></div>
             <!-- section begin -->
             <section id="subheader" class="jarallax text-white">
-                <img src="images/background/subheader2.jpg" class="jarallax-img" alt="">
+                <img src="images/background/subheader.jpg" class="jarallax-img" alt="">
                 <div class="center-y relative text-center">
                     <div class="container">
                         <div class="row">
@@ -76,20 +76,22 @@
                         <div class="col-md-4">
                             <h3>Make an Appointment ?</h3>
                             <address class="s1">
-                                Monday, Tuesday, Wednesday, Thursday, Friday, Sunday
+                                Sunday to Friday
                                 9:00 am – 5:00 pm
                             </address>
                         </div>
                     </div>
                 </div>
             </section>
+
             <section aria-label="section" class="text-light" data-bgcolor="#111111">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2 mb-sm-30 text-center">
                             <h3>Do you have any question?</h3>
-                            <form name="contactForm" id="contact_form" class="form-border" method="post"
-                                action="https://www.madebydesignesia.com/themes/justica/email.php">
+                            <form id="contact_form" onsubmit="sendEmail(event); return false;" class="form-border">
+
+
                                 <div class="field-set">
                                     <input type="text" name="name" id="name" class="form-control"
                                         placeholder="Your Name" />
@@ -110,37 +112,14 @@
                                 <div id="submit">
                                     <input type="submit" id="send_message" value="Submit Form" class="btn btn-custom" />
                                 </div>
-                                <div id="mail_success" class="success">Your message has been sent successfully.</div>
-                                <div id="mail_fail" class="error">Sorry, error occured this time sending your message.
+                                <div id="mail_success" class="alert alert-success" style="display:none;">
+                                    Your message has been sent successfully.
                                 </div>
+                                <div id="mail_fail" class="alert alert-danger" style="display:none;">
+                                    Sorry, an error occurred while sending your message.
+                                </div>
+
                             </form>
-                        </div>
-                        <div class="col-lg-4">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="jarallax text-light">
-                <img src="images/background/2.jpg" class="jarallax-img" alt="">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 col-md-12 wow fadeInRight" data-wow-delay=".2s">
-                            <div class="de_count ultra-big s2 border-light text-center">
-                                <h3 class="timer" data-to="20" data-speed="1000">20</h3>
-                                <span class="id-color">Years of Experience</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 p-lg-5  mb-sm-30 wow fadeInRight" data-wow-delay=".4s">
-                            <span class="p-title">About Us</span><br>
-                            <h2>Justica is Your Best Partner for Legal Solutions</h2>
-                        </div>
-                        <div class="col-lg-4 wow fadeInRight" data-wow-delay=".6s">
-                            <p>
-                                We take pride in the depth and breadth of experience that our team of lawyers brings to
-                                the table. With years of dedicated practice in various areas of law, our attorneys have
-                                honed their skills, developed specialized knowledge, and earned a reputation for
-                                excellence in their respective fields.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -149,10 +128,8 @@
         <!-- content close -->
         <a href="contact.html#" id="back-to-top"></a>
 
-
-        <!-- header section starts -->
+        <!-- footer section starts -->
         <div id="footer"></div>
-
 
         <div id="preloader">
             <div class="spinner">
@@ -161,93 +138,121 @@
                 <div class="bounce3"></div>
             </div>
         </div>
-    </div>
 
+        <div id="purchase-now" style="display: flex; align-items: center; justify-content: center;">
+            <a href="https://wa.me/9779851201490" target="_blank"
+                style="display: flex; align-items: center; justify-content: center;">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </a>
+        </div>
 
+        <!-- Javascript Files
+        ================================================== -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/jquery.isotope.min.js"></script>
+        <script src="js/easing.js"></script>
+        <script src="js/owl.carousel.js"></script>
+        <script src="js/validation.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/enquire.min.js"></script>
+        <script src="js/jquery.stellar.min.js"></script>
+        <script src="js/jquery.plugin.js"></script>
+        <script src="js/typed.js"></script>
+        <script src="js/jarallax.js"></script>
+        <script src="js/jquery.countTo.js"></script>
+        <script src="js/jquery.countdown.js"></script>
+        <script src="js/designesia.js"></script>
 
+        <script>
+            $(function () {
+                $("#header").load("header.html", function () {
+                    const currentPage = window.location.pathname.split("/").pop();
 
-    
-    <div id="purchase-now" style="display: flex; align-items: center; justify-content: center;">
-        <a href="https://wa.me/9779851201490" target="_blank"
-            style="display: flex; align-items: center; justify-content: center;">
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-        </a>
-    </div>
+                    // Select all menu links
+                    const menuItems = document.querySelectorAll('.menu-link');
 
-    <!-- Javascript Files
-    ================================================== -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/easing.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <script src="js/validation.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/enquire.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/jquery.plugin.js"></script>
-    <script src="js/typed.js"></script>
-    <script src="js/jarallax.js"></script>
-    <script src="js/jquery.countTo.js"></script>
-    <script src="js/jquery.countdown.js"></script>
-    <script src="js/designesia.js"></script>
-
-
-
-    <script>
-        $(function () {
-            $("#header").load("header.html", function () {
-                const currentPage = window.location.pathname.split("/").pop();
-
-                // Select all menu links
-                const menuItems = document.querySelectorAll('.menu-link');
-
-                // Iterate through each menu item
-                menuItems.forEach(function (menuItem) {
-                    // Compare the href attribute with the current page
-                    if (menuItem.getAttribute('href') === currentPage) {
-                        menuItem.classList.add('active'); // Add 'active' class to active menu items
-                    }
+                    // Iterate through each menu item
+                    menuItems.forEach(function (menuItem) {
+                        // Compare the href attribute with the current page
+                        if (menuItem.getAttribute('href') === currentPage) {
+                            menuItem.classList.add('active'); // Add 'active' class to active menu items
+                        }
+                    });
                 });
+
+                // Load other sections
+                $("#footer").load("footer.html");
             });
+        </script>
 
-            // Load other sections
+        <script type="text/javascript">
+            function sendEmail(event) {
+                // Prevent the form from submitting via the default POST action
+                event.preventDefault();
 
-            $("#footer").load("footer.html");
-        });
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var phone = document.getElementById("phone").value;
+                var message = document.getElementById("message").value;
 
-
-    </script>
-
-
-    <style>
-        /* Styling for the active menu item */
-        .menu-area .main-menu ul li a.active {
-            color: #FFA500 !important;
-            /* Orange color */
-            font-weight: bold;
-            /* Make the active item bold */
-        }
-
-        /* Mobile styles */
-        @media (max-width: 991px) {
-            .th-mobile-menu ul li a.active {
-                color: #FFA500 !important;
-                /* Orange color for active menu items */
+                Email.send({
+                    Host: "mail.finlexassociates.com",  // Outgoing SMTP server
+                    Username: "info@finlexassociates.com",  // Your email
+                    Password: "your-password-here",  // Your email password (replace this securely)
+                    Port: 465,  // SMTP port
+                    To: 'receiver-email@example.com',  // Recipient's email (replace with your own to test)
+                    From: email,  // Sender's email (the one provided in the form)
+                    Subject: "New contact form inquiry from " + name,
+                    Body: "<h2>Contact Form Details</h2><p><strong>Name:</strong> " + name + "</p>" +
+                        "<p><strong>Email:</strong> " + email + "</p>" +
+                        "<p><strong>Phone:</strong> " + phone + "</p>" +
+                        "<p><strong>Message:</strong><br/>" + message + "</p>",
+                }).then(function (response) {
+                    if (response == 'OK') {
+                        document.getElementById("mail_success").style.display = "block";
+                        document.getElementById("mail_fail").style.display = "none";
+                    } else {
+                        document.getElementById("mail_fail").style.display = "block";
+                        document.getElementById("mail_success").style.display = "none";
+                    }
+                }).catch(function (error) {
+                    console.error("Error sending email:", error);
+                    document.getElementById("mail_fail").style.display = "block";
+                    document.getElementById("mail_success").style.display = "none";
+                });
             }
 
-            /* Apply orange color on hover or focus */
-            .th-mobile-menu ul li a:hover,
-            .th-mobile-menu ul li a:focus {
+        </script>
+
+        <style>
+            /* Styling for the active menu item */
+            .menu-area .main-menu ul li a.active {
                 color: #FFA500 !important;
+                /* Orange color */
+                font-weight: bold;
+                /* Make the active item bold */
             }
-        }
-    </style>
 
+            /* Mobile styles */
+            @media (max-width: 991px) {
+                .th-mobile-menu ul li a.active {
+                    color: #FFA500 !important;
+                    /* Orange color for active menu items */
+                }
 
+                /* Apply orange color on hover or focus */
+                .th-mobile-menu ul li a:hover,
+                .th-mobile-menu ul li a:focus {
+                    color: #FFA500 !important;
+                }
+            }
+        </style>
+
+    </div>
 </body>
 
 </html>

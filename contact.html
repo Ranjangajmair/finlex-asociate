@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <h1>Contact Us</h1>
-                                <p>Reputation. Respect. Result.</p>
+                                <p>FinLex Associates</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -199,34 +199,46 @@
                 var phone = document.getElementById("phone").value;
                 var message = document.getElementById("message").value;
 
-                Email.send({
-                    Host: "mail.finlexassociates.com",  // Outgoing SMTP server
-                    Username: "info@finlexassociates.com",  // Your email
-                    Password: "your-password-here",  // Your email password (replace this securely)
-                    Port: 465,  // SMTP port
-                    To: 'receiver-email@example.com',  // Recipient's email (replace with your own to test)
-                    From: email,  // Sender's email (the one provided in the form)
-                    Subject: "New contact form inquiry from " + name,
-                    Body: "<h2>Contact Form Details</h2><p><strong>Name:</strong> " + name + "</p>" +
-                        "<p><strong>Email:</strong> " + email + "</p>" +
-                        "<p><strong>Phone:</strong> " + phone + "</p>" +
-                        "<p><strong>Message:</strong><br/>" + message + "</p>",
-                }).then(function (response) {
-                    if (response == 'OK') {
-                        document.getElementById("mail_success").style.display = "block";
-                        document.getElementById("mail_fail").style.display = "none";
-                    } else {
+                // Basic validation
+                if (name === "" || email === "" || message === "") {
+                    alert("Please fill out all required fields.");
+                    return;
+                }
+
+                // Prepare form data for Mailgun API
+                var formData = new FormData();
+                formData.append("from", "Finlex Associates <contact@yourdomain.com>");  // Replace with your Mailgun domain email
+                formData.append("to", "ranjangajmair@gmail77.com");  // Replace with recipient email
+                formData.append("subject", `New Contact Form Inquiry from ${name}`);
+                formData.append("text", `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`);
+
+                // Send the email using Mailgun API
+                fetch("https://api.mailgun.net/v3/YOUR_DOMAIN/messages", {  // Replace 'YOUR_DOMAIN' with your Mailgun domain
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Basic " + btoa("api:YOUR_API_KEY"),  // Replace 'YOUR_API_KEY' with your Mailgun API key
+                    },
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === "Queued. Thank you.") {
+                            document.getElementById("mail_success").style.display = "block";
+                            document.getElementById("mail_fail").style.display = "none";
+                        } else {
+                            document.getElementById("mail_fail").style.display = "block";
+                            document.getElementById("mail_success").style.display = "none";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error sending email:", error);
                         document.getElementById("mail_fail").style.display = "block";
                         document.getElementById("mail_success").style.display = "none";
-                    }
-                }).catch(function (error) {
-                    console.error("Error sending email:", error);
-                    document.getElementById("mail_fail").style.display = "block";
-                    document.getElementById("mail_success").style.display = "none";
-                });
+                    });
             }
-
         </script>
+
+
 
         <style>
             /* Styling for the active menu item */

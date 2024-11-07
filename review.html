@@ -61,11 +61,13 @@
 
                         <!-- New section for Write a Review and View All Reviews buttons -->
                         <div class="review-buttons text-center">
-                            <a href="https://www.google.com/maps/place/?q=place_id:ChIJs0assRsZ6zkRCruKh_xC_IE" target="_blank" class="view-all-reviews">View All Reviews</a>
+                            <a href="https://www.google.com/maps/place/?q=place_id:ChIJs0assRsZ6zkRCruKh_xC_IE"
+                                target="_blank" class="view-all-reviews">View All Reviews</a>
                             <br />
                             <br />
                             <span>
-                                <a href="https://search.google.com/local/writereview?placeid=ChIJs0assRsZ6zkRCruKh_xC_IE" target="_blank" class="btn btn-primary">Write a Review</a>
+                                <a href="https://search.google.com/local/writereview?placeid=ChIJs0assRsZ6zkRCruKh_xC_IE"
+                                    target="_blank" class="btn btn-primary">Write a Review</a>
                             </span>
                         </div>
                     </div>
@@ -178,7 +180,7 @@
             // If the carousel is already initialized, add new items
             if (carouselInitialized) {
                 const owl = $('.owl-carousel').data('owl.carousel');
-                $(html).each(function() {
+                $(html).each(function () {
                     owl.add($(this)); // Append new items to the carousel
                 });
             } else {
@@ -242,7 +244,8 @@
 
         .review-stars {
             margin-bottom: 10px;
-            color: #FFD700; /* Gold color for stars */
+            color: #FFD700;
+            /* Gold color for stars */
         }
 
         .review-card p {
@@ -284,7 +287,8 @@
         }
 
         /* Custom styles for carousel icons */
-        .fas.fa-chevron-left, .fas.fa-chevron-right {
+        .fas.fa-chevron-left,
+        .fas.fa-chevron-right {
             font-size: 30px;
             color: #333;
         }
